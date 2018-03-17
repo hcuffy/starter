@@ -15,10 +15,10 @@ const initialState = {
 
 
 const reducer = (state, action) => {
-  switch (action.type) {
+	switch (action.type) {
     case ADD_RECIPE:
       return Object.assign({}, state, {
-        recipes: state.recipes.concat({
+        recipes: state.recipes.push({
           name: action.name
         })
       });
@@ -29,7 +29,7 @@ const reducer = (state, action) => {
         quantity: action.quantity
       };
       return Object.assign({}, state, {
-        ingredients: state.ingredients.concat(newIngredient)
+        ingredients: state.ingredients.push(newIngredient)
       });
   }
 
@@ -38,8 +38,11 @@ return state;
 
 const store = createStore(reducer, initialState);
 
-store.subscribe(() => document.getElementById('counter').innerText = store.getState());
+let test = store.getState().recipes[0].name;
 
+store.subscribe(() => document.getElementById('counter').innerText = test);
+
+store.dispatch({ type: 'ADD_RECIPE', name: 'Pancake'});
 // window.store = store;
 
 
